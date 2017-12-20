@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CBLParseISO8601Date"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "An ISO-8601 date parser using C functions from SQLite."
   s.homepage     = "https://github.com/GateGuru/CBLParseISO8601Date"
   s.description  = <<-DESC
@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
                    DESC
   s.license      = { :type => 'Apache License, Version 2.0', :file => 'LICENSE' }
   s.author       = { "Jens Alfke" => "http://jens.mooseyard.com/" }
-  s.source       = { :git => "https://github.com/GateGuru/CBLParseISO8601Date.git", :tag => "1.0.0" }
+  s.source       = { :git => "https://github.com/GateGuru/CBLParseISO8601Date.git", :tag => #{s.version}" }
   s.source_files = 'Code'
 end
