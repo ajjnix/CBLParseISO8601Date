@@ -60,33 +60,14 @@
 
 #include "CBLParseDate.h"
 
-#include <stdint.h>
 #include <stdarg.h>
 #include <ctype.h>
 #include <math.h>
 
 typedef uint8_t u8;
-typedef int64_t sqlite3_int64;
 
 #define sqlite3Isdigit isdigit
 #define sqlite3Isspace isspace
-
-
-/*
- ** A structure for holding a single date and time.
- */
-typedef struct DateTime DateTime;
-struct DateTime {
-    sqlite3_int64 iJD; /* The julian day number times 86400000 */
-    int Y, M, D;       /* Year, month, and day */
-    int h, m;          /* Hour and minutes */
-    int tz;            /* Timezone offset in minutes */
-    double s;          /* Seconds */
-    char validYMD;     /* True (1) if Y,M,D are valid */
-    char validHMS;     /* True (1) if h,m,s are valid */
-    char validJD;      /* True (1) if iJD is valid */
-    char validTZ;      /* True (1) if tz is valid */
-};
 
 
 /*
@@ -310,11 +291,16 @@ static int parseYyyyMmDd(const char *zDate, DateTime *p){
     return 0;
 }
 
-// Here's the main public function.
+// Public function.
 double CBLParseISO8601Date(const char* zDate) {
     DateTime x;
     if (parseYyyyMmDd(zDate,&x))
         return NAN;
     computeJD(&x);
     return x.iJD/1000.0 - 210866760000.0;
+}
+
+// Public function.
+int CBLParseISO8601DateTime(const char* zDate, DateTime *p) {
+    return (parseYyyyMmDd(zDate,p) ? 1 : 0);
 }
